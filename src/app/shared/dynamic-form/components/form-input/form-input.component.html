@@ -1,0 +1,12 @@
+<div
+  class="dynamic-field form-input"
+  [formGroup]="group">
+  <label>{{ config.label }}</label>
+    <input
+      type="{{config.inputType}}"
+      placeholder="{{config.placeholder}}"
+      [formControlName]="config.name"/>
+</div>
+<div *ngIf="!group.controls[config.name].valid && group.controls[config.name].touched">
+  <app-error-message [control]="group.controls[config.name]"></app-error-message>
+</div>

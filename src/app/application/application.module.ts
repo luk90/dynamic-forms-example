@@ -13,6 +13,10 @@ import { SectionEComponent } from './section-e/section-e.component';
     CommonModule,
     SharedModule
   ],
+  exports: [
+    ApplicationComponent
+  ],
   declarations: [ApplicationComponent, SectionAComponent, SectionBComponent, SectionCComponent, SectionDComponent, SectionEComponent]
 })
-export class ApplicationModule { }
+export class ApplicationModule {
+}

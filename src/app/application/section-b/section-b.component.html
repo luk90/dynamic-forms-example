@@ -1,3 +1,9 @@
-<p>
-  section-b works!
-</p>
+<legend>Section B</legend>
+<div class="">
+  <app-dynamic-form
+    [config]="config"
+    #form="appDynamicForm"
+    (submit)="submit($event)">
+  </app-dynamic-form>
+  {{ form.valid }}
+</div>

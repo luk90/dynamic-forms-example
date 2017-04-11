@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-application',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApplicationComponent implements OnInit {
 
-  constructor() { }
+  form: FormArray = new FormArray([]);
+  sectionAForm: FormGroup = new FormGroup({});
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
+  output($event: FormGroup) {
+    this.sectionAForm = $event;
+    console.log($event);
+  }
+
+  log() {
+    this.form.push(this.sectionAForm);
+    console.log(this.form);
+    this.form = null;
+  }
 }

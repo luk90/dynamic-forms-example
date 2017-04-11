@@ -43,12 +43,6 @@ export class SectionEComponent implements OnInit {
       name: 'regon',
       placeholder: 'REGON',
       validation: [Validators.required, RegonValidator.isValidRegonPattern, RegonValidator.isValidChecksum]
-    },
-    {
-      label: 'Zatwierdź',
-      name: 'submit',
-      type: 'button',
-      disabled: true
     }
   ];
   constructor() { }

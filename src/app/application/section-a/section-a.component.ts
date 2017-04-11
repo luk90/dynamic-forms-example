@@ -46,12 +46,6 @@ export class SectionAComponent implements OnInit, AfterViewInit {
       name: 'regon',
       placeholder: 'REGON',
       validation: [Validators.required, RegonValidator.isValidRegonPattern, RegonValidator.isValidChecksum]
-    },
-    {
-      label: 'Zatwierdź',
-      name: 'submit',
-      type: 'button',
-      disabled: true
     }
   ];
 

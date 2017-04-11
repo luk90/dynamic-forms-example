@@ -1,11 +1,26 @@
+<!--<div-->
+  <!--class="dynamic-field form-input"-->
+  <!--[formGroup]="group">-->
+  <!--<label>{{ config.label }}</label>-->
+    <!--<input-->
+      <!--type="{{config.inputType}}"-->
+      <!--placeholder="{{config.placeholder}}"-->
+      <!--[formControlName]="config.name"/>-->
+<!--</div>-->
+<!--<div *ngIf="!group.controls[config.name].valid && group.controls[config.name].touched">-->
+  <!--<app-error-message [control]="group.controls[config.name]"></app-error-message>-->
+<!--</div>-->
+
 <div
   class="dynamic-field form-input"
   [formGroup]="group">
-  <label>{{ config.label }}</label>
+  <md-input-container>
     <input
+      mdInput
       type="{{config.inputType}}"
       placeholder="{{config.placeholder}}"
       [formControlName]="config.name"/>
+  </md-input-container>
 </div>
 <div *ngIf="!group.controls[config.name].valid && group.controls[config.name].touched">
   <app-error-message [control]="group.controls[config.name]"></app-error-message>

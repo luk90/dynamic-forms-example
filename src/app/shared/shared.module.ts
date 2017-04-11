@@ -7,11 +7,13 @@ import { DynamicFieldDirective } from './dynamic-form/components/dynamic-field/d
 import { FormSelectComponent } from './dynamic-form/components/form-select/form-select.component';
 import { FormButtonComponent } from './dynamic-form/components/form-button/form-button.component';
 import { ErrorMessageComponent } from './messages/components/error-message/error-message.component';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    MaterialModule
   ],
   declarations: [
     DynamicFormComponent,

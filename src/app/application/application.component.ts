@@ -8,10 +8,12 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 })
 export class ApplicationComponent implements OnInit {
 
-  form: FormArray = new FormArray([]);
-  sectionAForm: FormGroup = new FormGroup({});
+  form: FormGroup ;
+  sectionAForm: FormGroup;
 
   constructor() {
+    this.form = new FormGroup({});
+    this.sectionAForm = new FormGroup({});
   }
 
   ngOnInit() {
@@ -23,8 +25,7 @@ export class ApplicationComponent implements OnInit {
   }
 
   log() {
-    this.form.push(this.sectionAForm);
+    this.form['sectionA'] = this.sectionAForm;
     console.log(this.form);
-    this.form = null;
   }
 }

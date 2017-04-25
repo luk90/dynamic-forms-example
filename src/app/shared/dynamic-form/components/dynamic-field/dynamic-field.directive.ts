@@ -7,11 +7,13 @@ import {FormInputComponent} from '../form-input/form-input.component';
 import {Field} from '../../model/field';
 import {FormSelectComponent} from '../form-select/form-select.component';
 import {FormButtonComponent} from '../form-button/form-button.component';
+import { FormRadioComponent } from '../form-radio/form-radio.component';
 
 const components: {[type: string]: Type<Field>} = {
   input: FormInputComponent,
   select: FormSelectComponent,
-  button: FormButtonComponent
+  button: FormButtonComponent,
+  radio: FormRadioComponent
 };
 
 @Directive({

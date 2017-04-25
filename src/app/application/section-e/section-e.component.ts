@@ -1,53 +1,64 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { RegonValidator } from '../../shared/validators/regon-validator';
-import { Validators } from '@angular/forms';
-import { NipValidator } from '../../shared/validators/nip-validator';
-import { EmailValidator } from '../../shared/validators/email-validator';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DynamicFormComponent } from '../../shared/dynamic-form/containers/dynamic-form.component';
 import { FieldConfig } from '../../shared/dynamic-form/model/field-config';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-section-e',
   templateUrl: './section-e.component.html',
   styleUrls: ['./section-e.component.scss']
 })
-export class SectionEComponent implements OnInit {
-  @ViewChild(DynamicFormComponent) dynamicForm: DynamicFormComponent;
+export class SectionEComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  @ViewChild(DynamicFormComponent) dynamicForm: DynamicFormComponent;
+  checker: { select: string, radio: string };
+  checkerSub: Subscription;
   config: FieldConfig[] = [
     {
-      type: 'input',
-      label: 'Nazwa',
-      name: 'name',
-      placeholder: 'Nazwa firmy',
-      validation: [Validators.required, Validators.minLength(2)]
+      type: 'select',
+      name: 'select',
+      options: [
+        {key: 'one', value: 'ONE'},
+        {key: 'two', value: 'TWO'},
+        {key: 'three', value: 'THREE'},
+        {key: 'four', value: 'FOUR'}
+      ]
     },
     {
-      type: 'input',
-      label: 'E-mail',
-      name: 'email',
-      inputType: 'text',
-      placeholder: 'E-mail',
-      validation: [Validators.required, EmailValidator.isValidMailFormat]
-    },
-    {
-      type: 'input',
-      label: 'Wpisz NIP',
-      name: 'nip',
-      placeholder: 'NIP',
-      validation: [Validators.required, NipValidator.isValidNipPattern, NipValidator.isValidChecksum]
-    },
-    {
-      type: 'input',
-      label: 'Wpisz REGON',
-      name: 'regon',
-      placeholder: 'REGON',
-      validation: [Validators.required, RegonValidator.isValidRegonPattern, RegonValidator.isValidChecksum]
+      type: 'radio',
+      label: 'radio button',
+      name: 'radio',
+      options: [
+        {key: 'Document', value: 'DOCUMENT'},
+        {key: 'Statement', value: 'STATEMENT'}
+      ]
     }
   ];
-  constructor() { }
+
+  constructor() {
+
+  }
 
   ngOnInit() {
+    this.checker = {select: null, radio: null};
+  }
+
+  ngAfterViewInit(): void {
+    this.checkerSub = this.dynamicForm.form.valueChanges
+      .map(() => this.checker = {select: this.select, radio: this.radio})
+      .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.checkerSub.unsubscribe();
+  }
+
+  get select() {
+    return this.dynamicForm.form.get('select').value;
+  }
+
+  get radio() {
+    return this.dynamicForm.form.get('radio').value;
   }
 
 }

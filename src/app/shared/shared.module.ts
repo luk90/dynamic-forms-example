@@ -8,6 +8,7 @@ import { FormSelectComponent } from './dynamic-form/components/form-select/form-
 import { FormButtonComponent } from './dynamic-form/components/form-button/form-button.component';
 import { ErrorMessageComponent } from './messages/components/error-message/error-message.component';
 import { MaterialModule } from '../material/material.module';
+import { FormRadioComponent } from './dynamic-form/components/form-radio/form-radio.component';
 
 @NgModule({
   imports: [
@@ -22,14 +23,17 @@ import { MaterialModule } from '../material/material.module';
     DynamicFieldDirective,
     FormButtonComponent,
     ErrorMessageComponent,
+    FormRadioComponent,
   ],
   exports: [
     DynamicFormComponent,
+    MaterialModule
   ],
   entryComponents: [
     FormInputComponent,
     FormSelectComponent,
-    FormButtonComponent
+    FormButtonComponent,
+    FormRadioComponent
   ]
 })
 export class SharedModule {

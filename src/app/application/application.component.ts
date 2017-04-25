@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FieldConfig } from '../shared/dynamic-form/model/field-config';
 
 @Component({
   selector: 'app-application',
@@ -8,7 +9,7 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 })
 export class ApplicationComponent implements OnInit {
 
-  form: FormGroup ;
+  form: FormGroup;
   sectionAForm: FormGroup;
 
   constructor() {
@@ -28,4 +29,6 @@ export class ApplicationComponent implements OnInit {
     this.form['sectionA'] = this.sectionAForm;
     console.log(this.form);
   }
+
+
 }

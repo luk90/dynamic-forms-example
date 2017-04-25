@@ -7,6 +7,7 @@ import { SectionBComponent } from './section-b/section-b.component';
 import { SectionCComponent } from './section-c/section-c.component';
 import { SectionDComponent } from './section-d/section-d.component';
 import { SectionEComponent } from './section-e/section-e.component';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
   imports: [

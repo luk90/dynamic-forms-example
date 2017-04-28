@@ -8,6 +8,7 @@ import {Field} from '../../model/field';
 import {FormSelectComponent} from '../form-select/form-select.component';
 import {FormButtonComponent} from '../form-button/form-button.component';
 import { FormRadioComponent } from '../form-radio/form-radio.component';
+import { FieldConfig } from '../../model/field-config';
 
 const components: {[type: string]: Type<Field>} = {
   input: FormInputComponent,
@@ -22,7 +23,7 @@ const components: {[type: string]: Type<Field>} = {
 export class DynamicFieldDirective implements OnInit, OnChanges, Field {
 
   @Input()
-  config;
+  config: FieldConfig;
 
   @Input()
   group: FormGroup;

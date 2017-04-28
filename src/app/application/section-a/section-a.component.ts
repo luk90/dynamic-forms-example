@@ -56,9 +56,10 @@ export class SectionAComponent implements OnInit, AfterViewInit {
   }
 
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.dynamicForm.changes.subscribe(() => this.sendForm());
   }
+
   sendForm() {
     this.output.emit(this.dynamicForm.form);
   }

@@ -1,7 +1,9 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { DynamicFormComponent } from '../../shared/dynamic-form/containers/dynamic-form.component';
 import { FieldConfig } from '../../shared/dynamic-form/model/field-config';
 import { Subscription } from 'rxjs';
+import { SectionEAComponent } from './section-e-a/section-e-a.component';
+import { SectionEBComponent } from './section-e-b/section-e-b.component';
 
 @Component({
   selector: 'app-section-e',
@@ -13,6 +15,7 @@ export class SectionEComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(DynamicFormComponent) dynamicForm: DynamicFormComponent;
   checker: { select: string, radio: string };
   checkerSub: Subscription;
+  optionsArray: Array<{ select: string, radio: string, component: any }>;
   config: FieldConfig[] = [
     {
       type: 'select',
@@ -35,22 +38,36 @@ export class SectionEComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   ];
 
-  constructor() {
-
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,
+              private viewContainerRef: ViewContainerRef) {
+    this.optionsArray = [];
   }
 
   ngOnInit() {
     this.checker = {select: null, radio: null};
+    this.optionsArray.push(
+      {select: 'ONE', radio: 'DOCUMENT', component: SectionEAComponent},
+      {select: 'ONE', radio: 'STATEMENT', component: SectionEBComponent},
+    );
   }
 
   ngAfterViewInit(): void {
     this.checkerSub = this.dynamicForm.form.valueChanges
       .map(() => this.checker = {select: this.select, radio: this.radio})
-      .subscribe();
+      .subscribe((option) => {
+        const object = this.findComponent(this.optionsArray, option);
+        if (object) {
+          this.loadComponent(object.component);
+        }
+      });
   }
 
   ngOnDestroy(): void {
     this.checkerSub.unsubscribe();
+  }
+
+  public findComponent(array: Array<{ select: string, radio: string, component: any }>, option): any {
+    return array.find((value, index, obj) => value.select === option.select && value.radio === option.radio);
   }
 
   get select() {
@@ -59,6 +76,12 @@ export class SectionEComponent implements OnInit, AfterViewInit, OnDestroy {
 
   get radio() {
     return this.dynamicForm.form.get('radio').value;
+  }
+
+  loadComponent(component: any) {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory<any>(component);
+    this.viewContainerRef.clear();
+    this.viewContainerRef.createComponent(componentFactory);
   }
 
 }

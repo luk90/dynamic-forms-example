@@ -1,3 +1,10 @@
-<p>
-  section-e-b works!
-</p>
+<legend>Section E-B</legend>
+<div class="">
+  <app-dynamic-form
+    [config]="config"
+    #form="appDynamicForm"
+    (submit)="submit($event)">
+  </app-dynamic-form>
+  {{ form.valid }}
+  <pre>{{form.value | json}}</pre>
+</div>

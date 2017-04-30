@@ -11,7 +11,6 @@ import { SectionEBComponent } from './section-e-b/section-e-b.component';
   styleUrls: ['./section-e.component.scss']
 })
 export class SectionEComponent implements OnInit, AfterViewInit, OnDestroy {
-
   @ViewChild(DynamicFormComponent) dynamicForm: DynamicFormComponent;
   checker: { select: string, radio: string };
   checkerSub: Subscription;

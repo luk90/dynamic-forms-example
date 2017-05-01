@@ -11,6 +11,8 @@ export class ErrorMessageService {
       invalidPassword: `Wpisz co najmniej 8 znaków, hasło musi zawierać przynajmniej jedną małą i duzą literę, cyfrę, znak specjalny`,
       invalidRegonChecksum: `Nieprawidłowy numer REGON`,
       invalidRegonPattern: `REGON musi składać się z 9 lub 14 cyfr`,
+      notBeforeDate: `Data nie może być wcześniejsza niż ${validatorValue.beforeDate}`,
+      invalidLowerNumber: `Numer nie może być mniejszy niż ${validatorValue.number}`,
     };
     return messages[validator];
   }

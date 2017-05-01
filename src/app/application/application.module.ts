@@ -7,9 +7,9 @@ import { SectionBComponent } from './section-b/section-b.component';
 import { SectionCComponent } from './section-c/section-c.component';
 import { SectionDComponent } from './section-d/section-d.component';
 import { SectionEComponent } from './section-e/section-e.component';
-import { MaterialModule } from '../material/material.module';
 import { SectionEAComponent } from './section-e/section-e-a/section-e-a.component';
 import { SectionEBComponent } from './section-e/section-e-b/section-e-b.component';
+import { GlobalVariableService } from './global-variable.service';
 
 @NgModule({
   imports: [
@@ -19,11 +19,16 @@ import { SectionEBComponent } from './section-e/section-e-b/section-e-b.componen
   exports: [
     ApplicationComponent
   ],
-  declarations: [ApplicationComponent, SectionAComponent, SectionBComponent, SectionCComponent, SectionDComponent,
-    SectionEComponent, SectionEAComponent, SectionEBComponent],
+  declarations: [
+    ApplicationComponent, SectionAComponent, SectionBComponent, SectionCComponent, SectionDComponent,
+    SectionEComponent, SectionEAComponent, SectionEBComponent
+  ],
   entryComponents: [
     SectionEAComponent,
     SectionEBComponent
+  ],
+  providers: [
+    GlobalVariableService
   ]
 
 })

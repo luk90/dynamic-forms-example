@@ -57,6 +57,8 @@ export class SectionEComponent implements OnInit, AfterViewInit, OnDestroy {
         const object = this.findComponent(this.optionsArray, option);
         if (object) {
           this.loadComponent(object.component);
+        } else {
+          this.clearComponent();
         }
       });
   }
@@ -79,8 +81,12 @@ export class SectionEComponent implements OnInit, AfterViewInit, OnDestroy {
 
   loadComponent(component: any) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory<any>(component);
-    this.viewContainerRef.clear();
+    this.clearComponent();
     this.viewContainerRef.createComponent(componentFactory);
+  }
+
+  clearComponent() {
+    this.viewContainerRef.clear();
   }
 
 }

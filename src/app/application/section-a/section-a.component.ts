@@ -23,7 +23,7 @@ export class SectionAComponent implements OnInit, AfterViewInit {
       label: 'Nazwa',
       name: 'name',
       placeholder: 'Nazwa firmy',
-      validation: [Validators.required, Validators.minLength(2)]
+      validation: [Validators.required, Validators.minLength(5)]
     },
     {
       type: 'input',
@@ -62,6 +62,12 @@ export class SectionAComponent implements OnInit, AfterViewInit {
 
   sendForm() {
     this.output.emit(this.dynamicForm.form);
+  }
+
+  setName() {
+    this.dynamicForm.setValue('name', '123');
+    this.dynamicForm.form.get('name').markAsTouched();
+    this.dynamicForm.form.updateValueAndValidity();
   }
 
 }

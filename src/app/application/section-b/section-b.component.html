@@ -5,5 +5,5 @@
     #form="appDynamicForm"
     (submit)="submit($event)">
   </app-dynamic-form>
-  {{ form.valid }}
+  <pre>{{form.value | json}}</pre>
 </div>

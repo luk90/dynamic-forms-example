@@ -1,18 +1,22 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FieldConfig } from '../../shared/dynamic-form/model/field-config';
 import { DynamicFormComponent } from '../../shared/dynamic-form/containers/dynamic-form.component';
 import { Validators } from '@angular/forms';
 import { EmailValidator } from '../../shared/validators/email-validator';
 import { NipValidator } from '../../shared/validators/nip-validator';
 import { RegonValidator } from '../../shared/validators/regon-validator';
+import { ApplicationStateService } from '../application-state.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-section-c',
   templateUrl: './section-c.component.html',
   styleUrls: ['./section-c.component.scss']
 })
-export class SectionCComponent implements OnInit {
+export class SectionCComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(DynamicFormComponent) dynamicForm: DynamicFormComponent;
+
+  private formSubscription: Subscription;
 
   config: FieldConfig[] = [
     {
@@ -45,9 +49,20 @@ export class SectionCComponent implements OnInit {
       validation: [Validators.required, RegonValidator.isValidRegonPattern, RegonValidator.isValidChecksum]
     }
   ];
-  constructor() { }
+
+  constructor(private applicationStateService: ApplicationStateService) {
+  }
 
   ngOnInit() {
   }
 
+  ngAfterViewInit(): void {
+    this.formSubscription = this.dynamicForm.changes.subscribe((form) => {
+      this.applicationStateService.addFormGroup('sectionC', form);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.formSubscription.unsubscribe();
+  }
 }

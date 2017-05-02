@@ -4,7 +4,7 @@ import { FieldConfig } from '../../../shared/dynamic-form/model/field-config';
 import { SECTION_E } from '../section-e.constants';
 import { TYPE } from '../../../shared/dynamic-form/constans/types.constants';
 import { DateValidator } from '../../../shared/validators/date-validator';
-import { Validators } from '@angular/forms';
+import { AbstractControl, ValidationErrors, Validators } from '@angular/forms';
 import { GlobalVariableService } from '../../global-variable.service';
 import { NumberValidator } from '../../../shared/validators/number-validator';
 import { Subscription } from 'rxjs/Subscription';
@@ -20,8 +20,8 @@ export class SectionEAComponent implements OnInit, AfterViewInit, OnDestroy {
   private validationSubscription: Subscription;
   private number: number;
   private date: string;
-  private fieldAValidators = [Validators.required];
-  private fieldBValidators = [Validators.required];
+  private fieldAValidators: [(control: AbstractControl) => ValidationErrors] = [Validators.required];
+  private fieldBValidators: [(control: AbstractControl) => ValidationErrors] = [Validators.required];
   config: FieldConfig[];
 
   set validationDate(value: string) {

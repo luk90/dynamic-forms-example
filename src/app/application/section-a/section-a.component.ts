@@ -13,8 +13,6 @@ import { DynamicFormComponent } from '../../shared/dynamic-form/containers/dynam
 })
 export class SectionAComponent implements OnInit, AfterViewInit {
 
-  @Output() output = new EventEmitter();
-
   @ViewChild(DynamicFormComponent) dynamicForm: DynamicFormComponent;
 
   config: FieldConfig[] = [
@@ -57,11 +55,6 @@ export class SectionAComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit() {
-    this.dynamicForm.changes.subscribe(() => this.sendForm());
-  }
-
-  sendForm() {
-    this.output.emit(this.dynamicForm.form);
   }
 
   setName() {

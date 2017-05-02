@@ -10,6 +10,7 @@ import { SectionEComponent } from './section-e/section-e.component';
 import { SectionEAComponent } from './section-e/section-e-a/section-e-a.component';
 import { SectionEBComponent } from './section-e/section-e-b/section-e-b.component';
 import { GlobalVariableService } from './global-variable.service';
+import { ApplicationStateService } from './application-state.service';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { GlobalVariableService } from './global-variable.service';
     SectionEBComponent
   ],
   providers: [
-    GlobalVariableService
+    GlobalVariableService,
+    ApplicationStateService
   ]
 
 })

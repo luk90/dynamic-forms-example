@@ -8,6 +8,7 @@ import { DynamicFormComponent } from '../../shared/dynamic-form/containers/dynam
 import { GlobalVariableService } from '../global-variable.service';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
+import { ApplicationStateService } from '../application-state.service';
 
 @Component({
   selector: 'app-section-b',
@@ -19,6 +20,7 @@ export class SectionBComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private dateSubscription: Subscription;
   private numberSubscription: Subscription;
+  private formSubscription: Subscription;
 
   config: FieldConfig[] = [
     {
@@ -53,7 +55,8 @@ export class SectionBComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   ];
 
-  constructor(private globalVariableService: GlobalVariableService) {
+  constructor(private globalVariableService: GlobalVariableService,
+              private applicationStateService: ApplicationStateService) {
   }
 
   ngOnInit() {
@@ -63,19 +66,21 @@ export class SectionBComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dateSubscription = this.dynamicForm.form.get('date')
       .valueChanges
       .subscribe((value) => {
-        console.log(value);
         this.globalVariableService.addVariable('date', value);
       });
     this.numberSubscription = this.dynamicForm.form.get('numberField')
       .valueChanges
       .subscribe((value) => {
-        console.log(value);
         this.globalVariableService.addVariable('number', value);
       });
+    this.formSubscription = this.dynamicForm.changes.subscribe((form) => {
+      this.applicationStateService.addFormGroup('sectionB', form);
+    });
   }
 
   ngOnDestroy(): void {
     this.dateSubscription.unsubscribe();
     this.numberSubscription.unsubscribe();
+    this.formSubscription.unsubscribe();
   }
 }

@@ -4,6 +4,7 @@ import { FieldConfig } from '../../shared/dynamic-form/model/field-config';
 import { Subscription } from 'rxjs';
 import { SectionEAComponent } from './section-e-a/section-e-a.component';
 import { SectionEBComponent } from './section-e-b/section-e-b.component';
+import { ApplicationStateService } from '../application-state.service';
 
 @Component({
   selector: 'app-section-e',
@@ -38,12 +39,12 @@ export class SectionEComponent implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
-              private viewContainerRef: ViewContainerRef) {
+              private viewContainerRef: ViewContainerRef,
+              private applicationStateService: ApplicationStateService) {
     this.optionsArray = [];
   }
 
   ngOnInit() {
-    this.checker = {select: null, radio: null};
     this.optionsArray.push(
       {select: 'ONE', radio: 'DOCUMENT', component: SectionEAComponent},
       {select: 'ONE', radio: 'STATEMENT', component: SectionEBComponent},
@@ -51,8 +52,11 @@ export class SectionEComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.checkerSub = this.dynamicForm.form.valueChanges
-      .map(() => this.checker = {select: this.select, radio: this.radio})
+    this.checkerSub = this.dynamicForm.changes
+      .do(form => this.applicationStateService.addFormGroup('sectionE', form))
+      .map(() => {
+        return {select: this.select, radio: this.radio};
+      })
       .subscribe((option) => {
         const object = this.findComponent(this.optionsArray, option);
         if (object) {

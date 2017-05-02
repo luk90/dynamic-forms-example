@@ -19,6 +19,7 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.applicationStateService.applicationState$.subscribe(map => {
+      this.form = {};
       map.forEach((value, key) => {
         this.form[key] = value;
       });

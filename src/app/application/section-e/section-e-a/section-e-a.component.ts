@@ -8,6 +8,7 @@ import { AbstractControl, ValidationErrors, Validators } from '@angular/forms';
 import { GlobalVariableService } from '../../global-variable.service';
 import { NumberValidator } from '../../../shared/validators/number-validator';
 import { Subscription } from 'rxjs/Subscription';
+import { ApplicationStateService } from '../../application-state.service';
 
 @Component({
   selector: 'app-section-e-a',
@@ -34,7 +35,8 @@ export class SectionEAComponent implements OnInit, AfterViewInit, OnDestroy {
     this.updateFieldBValidators();
   }
 
-  constructor(private globalVariableService: GlobalVariableService) {
+  constructor(private globalVariableService: GlobalVariableService,
+              private applicationStateService: ApplicationStateService) {
   }
 
   ngOnInit() {
@@ -78,10 +80,13 @@ export class SectionEAComponent implements OnInit, AfterViewInit, OnDestroy {
       this.validationDate = value.get('date');
       this.validationNumber = value.get('number');
     });
+    this.dynamicForm.changes
+      .subscribe(form => this.applicationStateService.addFormGroup('sectionEA', form));
   }
 
   ngOnDestroy(): void {
     this.validationSubscription.unsubscribe();
+    this.applicationStateService.removeFormGroup('sectionEA');
   }
 
   updateFieldAValidators() {

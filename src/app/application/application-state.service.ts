@@ -5,9 +5,9 @@ import { FormGroup } from '@angular/forms';
 @Injectable()
 export class ApplicationStateService {
 
-  private applicationMap: Map<string, FormGroup> = new Map();
+  private applicationMap: Map<string, FormGroup> = new Map<string, FormGroup>();
 
-  private applicationState = new Subject<Map<string, FormGroup>>();
+  private applicationState: Subject<Map<string, FormGroup>> = new Subject<Map<string, FormGroup>>();
 
   applicationState$ = this.applicationState.asObservable();
 
@@ -22,6 +22,11 @@ export class ApplicationStateService {
 
   getFormGroup(key: string) {
     return this.applicationMap.get(key);
+  }
+
+  removeFormGroup(key: string): void {
+    this.applicationMap.delete(key);
+    this.applicationState.next(this.applicationMap);
   }
 
 }

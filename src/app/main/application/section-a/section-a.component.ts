@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { EmailValidator } from '../../shared/validators/email-validator';
-import { NipValidator } from '../../shared/validators/nip-validator';
-import { RegonValidator } from '../../shared/validators/regon-validator';
-import { FieldConfig } from '../../shared/dynamic-form/model/field-config';
-import { DynamicFormComponent } from '../../shared/dynamic-form/containers/dynamic-form.component';
+import { EmailValidator } from '../../../shared/validators/email-validator';
+import { NipValidator } from '../../../shared/validators/nip-validator';
+import { RegonValidator } from '../../../shared/validators/regon-validator';
+import { FieldConfig } from '../../../shared/dynamic-form/model/field-config';
+import { DynamicFormComponent } from '../../../shared/dynamic-form/containers/dynamic-form.component';
 
 @Component({
   selector: 'app-section-a',
@@ -55,12 +55,6 @@ export class SectionAComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit() {
-  }
-
-  setName() {
-    this.dynamicForm.setValue('name', '123');
-    this.dynamicForm.form.get('name').markAsTouched();
-    this.dynamicForm.form.updateValueAndValidity();
   }
 
 }

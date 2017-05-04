@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DynamicFormComponent } from '../../../shared/dynamic-form/containers/dynamic-form.component';
-import { FieldConfig } from '../../../shared/dynamic-form/model/field-config';
+import { DynamicFormComponent } from '../../../../shared/dynamic-form/containers/dynamic-form.component';
+import { FieldConfig } from '../../../../shared/dynamic-form/model/field-config';
 import { SECTION_E } from '../section-e.constants';
-import { TYPE } from '../../../shared/dynamic-form/constans/types.constants';
+import { TYPE } from '../../../../shared/dynamic-form/constans/types.constants';
 
 @Component({
   selector: 'app-section-e-b',

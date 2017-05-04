@@ -5,12 +5,14 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
-import { ApplicationModule } from './application/application.module';
+import { ApplicationModule } from './main/application/application.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,

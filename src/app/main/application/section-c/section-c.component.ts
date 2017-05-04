@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FieldConfig } from '../../shared/dynamic-form/model/field-config';
-import { DynamicFormComponent } from '../../shared/dynamic-form/containers/dynamic-form.component';
+import { FieldConfig } from '../../../shared/dynamic-form/model/field-config';
+import { DynamicFormComponent } from '../../../shared/dynamic-form/containers/dynamic-form.component';
 import { Validators } from '@angular/forms';
-import { EmailValidator } from '../../shared/validators/email-validator';
-import { NipValidator } from '../../shared/validators/nip-validator';
-import { RegonValidator } from '../../shared/validators/regon-validator';
+import { EmailValidator } from '../../../shared/validators/email-validator';
+import { NipValidator } from '../../../shared/validators/nip-validator';
+import { RegonValidator } from '../../../shared/validators/regon-validator';
 import { ApplicationStateService } from '../application-state.service';
 import { Subscription } from 'rxjs/Subscription';
 

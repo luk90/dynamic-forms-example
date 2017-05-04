@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { ApplicationComponent } from './application.component';
 import { SectionAComponent } from './section-a/section-a.component';
 import { SectionBComponent } from './section-b/section-b.component';
@@ -11,6 +11,7 @@ import { SectionEAComponent } from './section-e/section-e-a/section-e-a.componen
 import { SectionEBComponent } from './section-e/section-e-b/section-e-b.component';
 import { GlobalVariableService } from './global-variable.service';
 import { ApplicationStateService } from './application-state.service';
+import { ApplicationUtilsService } from './application-utils.service';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { ApplicationStateService } from './application-state.service';
   ],
   providers: [
     GlobalVariableService,
-    ApplicationStateService
+    ApplicationStateService,
+    ApplicationUtilsService
   ]
 
 })

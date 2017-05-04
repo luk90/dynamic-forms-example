@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { DynamicFormComponent } from '../../shared/dynamic-form/containers/dynamic-form.component';
-import { FieldConfig } from '../../shared/dynamic-form/model/field-config';
+import { DynamicFormComponent } from '../../../shared/dynamic-form/containers/dynamic-form.component';
+import { FieldConfig } from '../../../shared/dynamic-form/model/field-config';
 import { Subscription } from 'rxjs';
 import { SectionEAComponent } from './section-e-a/section-e-a.component';
 import { SectionEBComponent } from './section-e-b/section-e-b.component';

@@ -1,0 +1,7 @@
+<p>
+  main works!
+</p>
+<button (click)="openApplication('NEW')">NEW</button>
+<button (click)="openApplication('EDIT')">EDIT</button>
+<button (click)="closeApplication()">CLOSE</button>
+<app-application *ngIf="isOpen"></app-application>

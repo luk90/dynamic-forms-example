@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { DynamicFormComponent } from '../../../shared/dynamic-form/containers/dynamic-form.component';
-import { FieldConfig } from '../../../shared/dynamic-form/model/field-config';
+import { DynamicFormComponent } from '../../../../shared/dynamic-form/containers/dynamic-form.component';
+import { FieldConfig } from '../../../../shared/dynamic-form/model/field-config';
 import { SECTION_E } from '../section-e.constants';
-import { TYPE } from '../../../shared/dynamic-form/constans/types.constants';
-import { DateValidator } from '../../../shared/validators/date-validator';
+import { TYPE } from '../../../../shared/dynamic-form/constans/types.constants';
+import { DateValidator } from '../../../../shared/validators/date-validator';
 import { AbstractControl, ValidationErrors, Validators } from '@angular/forms';
 import { GlobalVariableService } from '../../global-variable.service';
-import { NumberValidator } from '../../../shared/validators/number-validator';
+import { NumberValidator } from '../../../../shared/validators/number-validator';
 import { Subscription } from 'rxjs/Subscription';
 import { ApplicationStateService } from '../../application-state.service';
 
@@ -53,7 +53,7 @@ export class SectionEAComponent implements OnInit, AfterViewInit, OnDestroy {
         inputType: 'number',
         name: SECTION_E.FIELD_B.NAME,
         placeholder: SECTION_E.FIELD_B.PLACEHOLDER,
-        validation: this.fieldBValidators
+        validation: this.fieldBValidators,
       },
       {
         type: TYPE.INPUT,
@@ -80,11 +80,13 @@ export class SectionEAComponent implements OnInit, AfterViewInit, OnDestroy {
       this.validationDate = value.get('date');
       this.validationNumber = value.get('number');
     });
+    this.applicationStateService.addFormGroup('sectionEA', this.dynamicForm.form);
     this.dynamicForm.changes
       .subscribe(form => this.applicationStateService.addFormGroup('sectionEA', form));
   }
 
   ngOnDestroy(): void {
+    console.log('usuwanie sekcji ea');
     this.validationSubscription.unsubscribe();
     this.applicationStateService.removeFormGroup('sectionEA');
   }

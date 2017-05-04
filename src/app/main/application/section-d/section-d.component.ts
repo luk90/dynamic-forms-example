@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { EmailValidator } from '../../shared/validators/email-validator';
+import { EmailValidator } from '../../../shared/validators/email-validator';
 import { Validators } from '@angular/forms';
-import { NipValidator } from '../../shared/validators/nip-validator';
-import { RegonValidator } from '../../shared/validators/regon-validator';
-import { DynamicFormComponent } from '../../shared/dynamic-form/containers/dynamic-form.component';
-import { FieldConfig } from '../../shared/dynamic-form/model/field-config';
+import { NipValidator } from '../../../shared/validators/nip-validator';
+import { RegonValidator } from '../../../shared/validators/regon-validator';
+import { DynamicFormComponent } from '../../../shared/dynamic-form/containers/dynamic-form.component';
+import { FieldConfig } from '../../../shared/dynamic-form/model/field-config';
 
 @Component({
   selector: 'app-section-d',

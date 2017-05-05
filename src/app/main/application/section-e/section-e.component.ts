@@ -2,9 +2,11 @@ import { AfterViewInit, Component, ComponentFactoryResolver, OnDestroy, OnInit, 
 import { DynamicFormComponent } from '../../../shared/dynamic-form/containers/dynamic-form.component';
 import { FieldConfig } from '../../../shared/dynamic-form/model/field-config';
 import { Subscription } from 'rxjs';
-import { SectionEAComponent } from './section-e-a/section-e-a.component';
-import { SectionEBComponent } from './section-e-b/section-e-b.component';
 import { ApplicationStateService } from '../application-state.service';
+import { ApplicationUtilsService } from '../application-utils.service';
+import { TYPE } from '../../../shared/dynamic-form/constants/type.constants';
+import { SECTION_E } from './section-e.constants';
+import { DynamicComponentsService } from './dynamic-components.service';
 
 @Component({
   selector: 'app-section-e',
@@ -13,62 +15,65 @@ import { ApplicationStateService } from '../application-state.service';
 })
 export class SectionEComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(DynamicFormComponent) dynamicForm: DynamicFormComponent;
-  checker: { select: string, radio: string };
-  checkerSub: Subscription;
-  optionsArray: Array<{ select: string, radio: string, component: any }>;
-  config: FieldConfig[] = [
-    {
-      type: 'select',
-      name: 'select',
-      options: [
-        {key: 'one', value: 'ONE'},
-        {key: 'two', value: 'TWO'},
-        {key: 'three', value: 'THREE'},
-        {key: 'four', value: 'FOUR'}
-      ]
-    },
-    {
-      type: 'radio',
-      label: 'radio button',
-      name: 'radio',
-      options: [
-        {key: 'Document', value: 'DOCUMENT'},
-        {key: 'Statement', value: 'STATEMENT'}
-      ]
-    }
-  ];
+  sectionESubscription: Subscription;
+  optionsArray: Array<{ select: string, radio: string, component: any }> = [];
+  config: FieldConfig[];
+  private savedForm;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private viewContainerRef: ViewContainerRef,
-              private applicationStateService: ApplicationStateService) {
-    this.optionsArray = [];
+              private applicationStateService: ApplicationStateService,
+              private applicationUtilsService: ApplicationUtilsService,
+              private dynamicComponentsService: DynamicComponentsService) {
   }
 
   ngOnInit() {
-    this.optionsArray.push(
-      {select: 'ONE', radio: 'DOCUMENT', component: SectionEAComponent},
-      {select: 'ONE', radio: 'STATEMENT', component: SectionEBComponent},
-    );
+    const applicationMap = this.applicationStateService.applicationMap;
+    this.savedForm = this.applicationUtilsService.checkIfObjectExistAndGet(applicationMap, 'sectionE');
+    this.optionsArray = this.dynamicComponentsService.getComponents();
+    this.config = [
+      {
+        type: TYPE.SELECT,
+        name: SECTION_E.SELECT.NAME,
+        options: SECTION_E.SELECT.OPTIONS,
+        value: this.savedForm[SECTION_E.SELECT.NAME],
+      },
+      {
+        type: TYPE.RADIO,
+        label: SECTION_E.RADIO.LABEL,
+        name: SECTION_E.RADIO.NAME,
+        options: SECTION_E.RADIO.OPTIONS,
+        value: this.savedForm[SECTION_E.RADIO.NAME],
+      }
+    ];
+    if (this.applicationStateService.applicationStateValue === 'EDIT') {
+      const radioAndSelectStateAfterEdit = {select: this.savedForm[SECTION_E.SELECT.NAME], radio: this.savedForm[SECTION_E.RADIO.NAME]};
+      this.dynamicComponentHandler(radioAndSelectStateAfterEdit);
+    }
   }
 
   ngAfterViewInit(): void {
-    this.checkerSub = this.dynamicForm.changes
+    this.sectionESubscription = this.dynamicForm.changes
       .do(form => this.applicationStateService.addFormGroup('sectionE', form))
       .map(() => {
         return {select: this.select, radio: this.radio};
       })
       .subscribe((option) => {
-        const object = this.findComponent(this.optionsArray, option);
-        if (object) {
-          this.loadComponent(object.component);
-        } else {
-          this.clearComponent();
-        }
+        this.dynamicComponentHandler(option);
       });
   }
 
+  private dynamicComponentHandler(option) {
+    const object = this.findComponent(this.optionsArray, option);
+    if (object) {
+      this.loadComponent(object.component);
+    } else {
+      this.clearComponent();
+    }
+  }
+
   ngOnDestroy(): void {
-    this.checkerSub.unsubscribe();
+    this.sectionESubscription.unsubscribe();
   }
 
   public findComponent(array: Array<{ select: string, radio: string, component: any }>, option): any {
@@ -76,11 +81,11 @@ export class SectionEComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   get select() {
-    return this.dynamicForm.form.get('select').value;
+    return this.dynamicForm.form.get(SECTION_E.SELECT.NAME).value;
   }
 
   get radio() {
-    return this.dynamicForm.form.get('radio').value;
+    return this.dynamicForm.form.get(SECTION_E.RADIO.NAME).value;
   }
 
   loadComponent(component: any) {
@@ -91,6 +96,19 @@ export class SectionEComponent implements OnInit, AfterViewInit, OnDestroy {
 
   clearComponent() {
     this.viewContainerRef.clear();
+  }
+
+  changeOptions() {
+    this.config[0].options = [
+      {key: 'one', value: 'ONE'},
+      {key: 'two', value: 'TWO'},
+      {key: 'three', value: 'THREE'},
+      {key: 'four', value: 'FOUR'},
+      {key: 'five', value: 'FIVE'}];
+    this.config[1].options = [
+      {key: 'Document', value: 'DOCUMENT'},
+      {key: 'Statement', value: 'STATEMENT'},
+      {key: 'three', value: 'THREE'}];
   }
 
 }

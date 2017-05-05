@@ -7,6 +7,10 @@ import { NipValidator } from '../../../shared/validators/nip-validator';
 import { RegonValidator } from '../../../shared/validators/regon-validator';
 import { ApplicationStateService } from '../application-state.service';
 import { Subscription } from 'rxjs/Subscription';
+import { TYPE } from '../../../shared/dynamic-form/constants/type.constants';
+import { SECTION_C } from './section-c.constants';
+import { INPUT_TYPE } from '../../../shared/dynamic-form/constants/input-type.constants';
+import { ApplicationUtilsService } from '../application-utils.service';
 
 @Component({
   selector: 'app-section-c',
@@ -17,43 +21,51 @@ export class SectionCComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(DynamicFormComponent) dynamicForm: DynamicFormComponent;
 
   private formSubscription: Subscription;
+  config: FieldConfig[];
+  savedForm: Object = {};
 
-  config: FieldConfig[] = [
-    {
-      type: 'input',
-      label: 'Nazwa',
-      name: 'name',
-      placeholder: 'Nazwa firmy',
-      validation: [Validators.required, Validators.minLength(2)]
-    },
-    {
-      type: 'input',
-      label: 'E-mail',
-      name: 'email',
-      inputType: 'text',
-      placeholder: 'E-mail',
-      validation: [Validators.required, EmailValidator.isValidMailFormat]
-    },
-    {
-      type: 'input',
-      label: 'Wpisz NIP',
-      name: 'nip',
-      placeholder: 'NIP',
-      validation: [Validators.required, NipValidator.isValidNipPattern, NipValidator.isValidChecksum]
-    },
-    {
-      type: 'input',
-      label: 'Wpisz REGON',
-      name: 'regon',
-      placeholder: 'REGON',
-      validation: [Validators.required, RegonValidator.isValidRegonPattern, RegonValidator.isValidChecksum]
-    }
-  ];
-
-  constructor(private applicationStateService: ApplicationStateService) {
+  constructor(private applicationStateService: ApplicationStateService,
+              private applicationUtilsService: ApplicationUtilsService) {
   }
 
   ngOnInit() {
+    const applicationMap = this.applicationStateService.applicationMap;
+    this.savedForm = this.applicationUtilsService.checkIfObjectExistAndGet(applicationMap, 'sectionC');
+    this.config = [
+      {
+        type: TYPE.INPUT,
+        label: SECTION_C.NAME.LABEL,
+        name: SECTION_C.NAME.NAME,
+        placeholder: SECTION_C.NAME.PLACEHOLDER,
+        validation: [Validators.required, Validators.minLength(2)],
+        value: this.savedForm[SECTION_C.NAME.NAME]
+      },
+      {
+        type: TYPE.INPUT,
+        label: SECTION_C.EMAIL.LABEL,
+        name: SECTION_C.EMAIL.NAME,
+        inputType: INPUT_TYPE.TEXT,
+        placeholder: SECTION_C.EMAIL.PLACEHOLDER,
+        validation: [Validators.required, EmailValidator.isValidMailFormat],
+        value: this.savedForm[SECTION_C.EMAIL.NAME]
+      },
+      {
+        type: TYPE.INPUT,
+        label: SECTION_C.NIP.LABEL,
+        name: SECTION_C.NIP.NAME,
+        placeholder: SECTION_C.NIP.PLACEHOLDER,
+        validation: [Validators.required, NipValidator.isValidNipPattern, NipValidator.isValidChecksum],
+        value: this.savedForm[SECTION_C.NIP.NAME]
+      },
+      {
+        type: TYPE.INPUT,
+        label: SECTION_C.REGON.LABEL,
+        name: SECTION_C.REGON.NAME,
+        placeholder: SECTION_C.REGON.PLACEHOLDER,
+        validation: [Validators.required, RegonValidator.isValidRegonPattern, RegonValidator.isValidChecksum],
+        value: this.savedForm[SECTION_C.REGON.NAME]
+      }
+    ];
   }
 
   ngAfterViewInit(): void {

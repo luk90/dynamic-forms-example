@@ -12,6 +12,7 @@ import { SectionEBComponent } from './section-e/section-e-b/section-e-b.componen
 import { GlobalVariableService } from './global-variable.service';
 import { ApplicationStateService } from './application-state.service';
 import { ApplicationUtilsService } from './application-utils.service';
+import { DynamicComponentsService } from './section-e/dynamic-components.service';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { ApplicationUtilsService } from './application-utils.service';
   providers: [
     GlobalVariableService,
     ApplicationStateService,
-    ApplicationUtilsService
+    ApplicationUtilsService,
+    DynamicComponentsService
   ]
 
 })

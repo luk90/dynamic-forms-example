@@ -2,13 +2,15 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular
 import { DynamicFormComponent } from '../../../../shared/dynamic-form/containers/dynamic-form.component';
 import { FieldConfig } from '../../../../shared/dynamic-form/model/field-config';
 import { SECTION_E } from '../section-e.constants';
-import { TYPE } from '../../../../shared/dynamic-form/constans/types.constants';
+import { TYPE } from '../../../../shared/dynamic-form/constants/type.constants';
 import { DateValidator } from '../../../../shared/validators/date-validator';
 import { AbstractControl, ValidationErrors, Validators } from '@angular/forms';
 import { GlobalVariableService } from '../../global-variable.service';
 import { NumberValidator } from '../../../../shared/validators/number-validator';
 import { Subscription } from 'rxjs/Subscription';
 import { ApplicationStateService } from '../../application-state.service';
+import { INPUT_TYPE } from '../../../../shared/dynamic-form/constants/input-type.constants';
+import { ApplicationUtilsService } from '../../application-utils.service';
 
 @Component({
   selector: 'app-section-e-a',
@@ -18,12 +20,83 @@ import { ApplicationStateService } from '../../application-state.service';
 export class SectionEAComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(DynamicFormComponent) dynamicForm: DynamicFormComponent;
 
+  private savedForm: Object = {};
   private validationSubscription: Subscription;
+  private formSubscription: Subscription;
   private number: number;
   private date: string;
   private fieldAValidators: [(control: AbstractControl) => ValidationErrors] = [Validators.required];
   private fieldBValidators: [(control: AbstractControl) => ValidationErrors] = [Validators.required];
   config: FieldConfig[];
+
+
+  constructor(private globalVariableService: GlobalVariableService,
+              private applicationStateService: ApplicationStateService,
+              private applicationUtilsService: ApplicationUtilsService) {
+  }
+
+  ngOnInit() {
+    const applicationMap = this.applicationStateService.applicationMap;
+    this.savedForm = this.applicationUtilsService.checkIfObjectExistAndGet(applicationMap, 'sectionEA');
+    this.config = [
+      {
+        type: TYPE.INPUT,
+        inputType: INPUT_TYPE.DATE,
+        name: SECTION_E.FIELD_A.NAME,
+        placeholder: SECTION_E.FIELD_A.PLACEHOLDER,
+        validation: this.fieldAValidators,
+        value: this.savedForm[SECTION_E.FIELD_A.NAME]
+      },
+      {
+        type: TYPE.INPUT,
+        inputType: INPUT_TYPE.NUMBER,
+        name: SECTION_E.FIELD_B.NAME,
+        placeholder: SECTION_E.FIELD_B.PLACEHOLDER,
+        validation: this.fieldBValidators,
+        value: this.savedForm[SECTION_E.FIELD_B.NAME]
+      },
+      {
+        type: TYPE.INPUT,
+        name: SECTION_E.FIELD_C.NAME,
+        placeholder: SECTION_E.FIELD_C.PLACEHOLDER,
+        value: this.savedForm[SECTION_E.FIELD_C.NAME]
+      },
+      {
+        type: TYPE.INPUT,
+        name: SECTION_E.FIELD_D.NAME,
+        placeholder: SECTION_E.FIELD_D.PLACEHOLDER,
+        value: this.savedForm[SECTION_E.FIELD_D.NAME]
+      },
+      {
+        type: TYPE.INPUT,
+        name: SECTION_E.FIELD_E.NAME,
+        placeholder: SECTION_E.FIELD_E.PLACEHOLDER,
+        value: this.savedForm[SECTION_E.FIELD_E.NAME]
+      }
+    ];
+  }
+
+  ngAfterViewInit(): void {
+    this.validationDate = this.globalVariableService.getVariable('date');
+    this.validationNumber = this.globalVariableService.getVariable('numberField');
+    this.validationSubscription = this.globalVariableService.globalVariables$.subscribe(value => {
+      this.validationDate = value.get('date');
+      this.validationNumber = value.get('numberField');
+    });
+    this.applicationStateService.addFormGroup('sectionEA', this.dynamicForm.form);
+    this.formSubscription = this.dynamicForm.changes
+      .subscribe(form => this.applicationStateService.addFormGroup('sectionEA', form));
+  }
+
+  ngOnDestroy(): void {
+    console.log('usuwanie sekcji ea');
+    this.validationSubscription.unsubscribe();
+    this.formSubscription.unsubscribe();
+    if (this.applicationStateService.applicationStateValue !== 'CLOSE') {
+      this.applicationStateService.removeFormGroup('sectionEA');
+    }
+
+  }
 
   set validationDate(value: string) {
     this.date = value;
@@ -35,64 +108,8 @@ export class SectionEAComponent implements OnInit, AfterViewInit, OnDestroy {
     this.updateFieldBValidators();
   }
 
-  constructor(private globalVariableService: GlobalVariableService,
-              private applicationStateService: ApplicationStateService) {
-  }
-
-  ngOnInit() {
-    this.config = [
-      {
-        type: TYPE.INPUT,
-        inputType: 'date',
-        name: SECTION_E.FIELD_A.NAME,
-        placeholder: SECTION_E.FIELD_A.PLACEHOLDER,
-        validation: this.fieldAValidators
-      },
-      {
-        type: TYPE.INPUT,
-        inputType: 'number',
-        name: SECTION_E.FIELD_B.NAME,
-        placeholder: SECTION_E.FIELD_B.PLACEHOLDER,
-        validation: this.fieldBValidators,
-      },
-      {
-        type: TYPE.INPUT,
-        name: SECTION_E.FIELD_C.NAME,
-        placeholder: SECTION_E.FIELD_C.PLACEHOLDER,
-      },
-      {
-        type: TYPE.INPUT,
-        name: SECTION_E.FIELD_D.NAME,
-        placeholder: SECTION_E.FIELD_D.PLACEHOLDER,
-      },
-      {
-        type: TYPE.INPUT,
-        name: SECTION_E.FIELD_E.NAME,
-        placeholder: SECTION_E.FIELD_E.PLACEHOLDER,
-      }
-    ];
-  }
-
-  ngAfterViewInit(): void {
-    this.validationDate = this.globalVariableService.getVariable('date');
-    this.validationNumber = this.globalVariableService.getVariable('number');
-    this.validationSubscription = this.globalVariableService.globalVariables$.subscribe(value => {
-      this.validationDate = value.get('date');
-      this.validationNumber = value.get('number');
-    });
-    this.applicationStateService.addFormGroup('sectionEA', this.dynamicForm.form);
-    this.dynamicForm.changes
-      .subscribe(form => this.applicationStateService.addFormGroup('sectionEA', form));
-  }
-
-  ngOnDestroy(): void {
-    console.log('usuwanie sekcji ea');
-    this.validationSubscription.unsubscribe();
-    this.applicationStateService.removeFormGroup('sectionEA');
-  }
-
   updateFieldAValidators() {
-    const fieldA = this.dynamicForm.form.get('fieldA');
+    const fieldA = this.dynamicForm.form.get(SECTION_E.FIELD_A.NAME);
     fieldA.setValidators(Validators.compose(
       [...this.fieldAValidators,
         DateValidator.isBeforeDate(this.date)
@@ -102,7 +119,7 @@ export class SectionEAComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   updateFieldBValidators() {
-    const fieldB = this.dynamicForm.form.get('fieldB');
+    const fieldB = this.dynamicForm.form.get(SECTION_E.FIELD_B.NAME);
     fieldB.setValidators(Validators.compose(
       [...this.fieldBValidators,
         NumberValidator.isLower(this.number)

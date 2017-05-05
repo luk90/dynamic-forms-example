@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
-type ApplicationStateType = 'NEW' | 'EDIT' | 'CLOSE';
+type ApplicationStateType = 'NEW' | 'EDIT' | 'CLOSE' | 'HIDDEN';
 
 @Injectable()
 export class ApplicationStateService {

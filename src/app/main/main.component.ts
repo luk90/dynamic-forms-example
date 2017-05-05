@@ -28,6 +28,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
 
   closeApplication() {
+    this.applicationStateService.applicationStateValue = 'CLOSE';
     this.isOpen = false;
   }
 }

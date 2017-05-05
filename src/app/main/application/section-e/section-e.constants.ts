@@ -1,4 +1,21 @@
 export const SECTION_E = {
+  SELECT: {
+    NAME: 'select',
+    OPTIONS: [
+      {key: 'one', value: 'ONE'},
+      {key: 'two', value: 'TWO'},
+      {key: 'three', value: 'THREE'},
+      {key: 'four', value: 'FOUR'}
+    ]
+  },
+  RADIO: {
+    NAME: 'radio',
+    LABEL: 'radio button',
+    OPTIONS: [
+      {key: 'Document', value: 'DOCUMENT'},
+      {key: 'Statement', value: 'STATEMENT'}
+    ]
+  },
   FIELD_A: {
     NAME: 'fieldA',
     PLACEHOLDER: 'field a',

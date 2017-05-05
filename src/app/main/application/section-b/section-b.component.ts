@@ -8,6 +8,9 @@ import { GlobalVariableService } from '../global-variable.service';
 import { Subscription } from 'rxjs/Subscription';
 import { ApplicationStateService } from '../application-state.service';
 import { ApplicationUtilsService } from '../application-utils.service';
+import { TYPE } from '../../../shared/dynamic-form/constants/type.constants';
+import { SECTION_B } from './section-b.constants';
+import { INPUT_TYPE } from '../../../shared/dynamic-form/constants/input-type.constants';
 
 @Component({
   selector: 'app-section-b',
@@ -29,57 +32,57 @@ export class SectionBComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    const appMap = this.applicationStateService.applicationMap;
-    this.savedForm = this.applicationUtilsService.checkIfObjectExistAndGet(appMap, 'sectionB');
-    console.log(this.savedForm, ' - loaded data');
+    const applicationMap = this.applicationStateService.applicationMap;
+    this.savedForm = this.applicationUtilsService.checkIfObjectExistAndGet(applicationMap, 'sectionB');
     this.config = [
       {
-        type: 'input',
-        label: 'Data',
-        name: 'date',
-        inputType: 'date',
-        placeholder: 'Data',
+        type: TYPE.INPUT,
+        label: SECTION_B.DATE.LABEL,
+        name: SECTION_B.DATE.NAME,
+        inputType: INPUT_TYPE.DATE,
+        placeholder: SECTION_B.DATE.PLACEHOLDER,
         validation: [Validators.required],
-        value: this.savedForm['date']
+        value: this.savedForm[SECTION_B.DATE.NAME]
       },
       {
-        type: 'input',
-        label: 'Number',
-        name: 'numberField',
-        inputType: 'number',
-        placeholder: 'Number',
+        type: TYPE.INPUT,
+        label: SECTION_B.NUMBER_FIELD.LABEL,
+        name: SECTION_B.NUMBER_FIELD.NAME,
+        inputType: INPUT_TYPE.NUMBER,
+        placeholder: SECTION_B.NUMBER_FIELD.PLACEHOLDER,
         validation: [Validators.required],
-        value: this.savedForm['numberField']
+        value: this.savedForm[SECTION_B.NUMBER_FIELD.NAME]
       },
       {
-        type: 'input',
-        label: 'Wpisz NIP',
-        name: 'nip',
-        placeholder: 'NIP',
+        type: TYPE.INPUT,
+        label: SECTION_B.NIP.LABEL,
+        name: SECTION_B.NIP.NAME,
+        placeholder: SECTION_B.NIP.PLACEHOLDER,
         validation: [Validators.required, NipValidator.isValidNipPattern, NipValidator.isValidChecksum],
-        value: this.savedForm['nip'],
+        value: this.savedForm[SECTION_B.NIP.NAME],
       },
       {
-        type: 'input',
-        label: 'Wpisz REGON',
-        name: 'regon',
-        placeholder: 'REGON',
-        validation: [Validators.required, RegonValidator.isValidRegonPattern, RegonValidator.isValidChecksum]
+        type: TYPE.INPUT,
+        label: SECTION_B.REGON.LABEL,
+        name: SECTION_B.REGON.NAME,
+        placeholder: SECTION_B.REGON.PLACEHOLDER,
+        validation: [Validators.required, RegonValidator.isValidRegonPattern, RegonValidator.isValidChecksum],
+        value: this.savedForm[SECTION_B.REGON.NAME]
       }
     ];
 
   }
 
   ngAfterViewInit(): void {
-    this.dateSubscription = this.dynamicForm.form.get('date')
+    this.dateSubscription = this.dynamicForm.form.get(SECTION_B.DATE.NAME)
       .valueChanges
       .subscribe((value) => {
-        this.globalVariableService.addVariable('date', value);
+        this.globalVariableService.addVariable(SECTION_B.DATE.NAME, value);
       });
-    this.numberSubscription = this.dynamicForm.form.get('numberField')
+    this.numberSubscription = this.dynamicForm.form.get(SECTION_B.NUMBER_FIELD.NAME)
       .valueChanges
       .subscribe((value) => {
-        this.globalVariableService.addVariable('number', value);
+        this.globalVariableService.addVariable(SECTION_B.NUMBER_FIELD.NAME, value);
       });
     this.formSubscription = this.dynamicForm.changes.subscribe((form) => {
       this.applicationStateService.addFormGroup('sectionB', form);

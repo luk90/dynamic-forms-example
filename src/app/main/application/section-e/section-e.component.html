@@ -1,5 +1,5 @@
 <legend>Section E</legend>
-<div class="">
+<div class="section-e">
   <app-dynamic-form
     [config]="config"
     #form="appDynamicForm"
@@ -8,4 +8,5 @@
   {{ form.valid }}
   <pre>{{form.value | json}}</pre>
 </div>
+<button md-button (click)="changeOptions()">CHANGE OPTIONS</button>
 <ng-template></ng-template>

@@ -12,12 +12,12 @@ import { ApplicationStateService } from '../../../../main/application/applicatio
 export class FormInputComponent implements Field, OnInit {
   config: FieldConfig;
   group: FormGroup;
-  applicationState;
+  isInEditState: boolean;
 
   constructor(private applicationStateService: ApplicationStateService) {
   }
 
   ngOnInit(): void {
-    this.applicationState = this.applicationStateService.applicationStateValue;
+    this.isInEditState = this.applicationStateService.applicationStateValue === 'EDIT';
   }
 }

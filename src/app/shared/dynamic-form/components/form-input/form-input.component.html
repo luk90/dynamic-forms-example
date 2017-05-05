@@ -22,9 +22,9 @@
       [formControlName]="config.name"/>
   </md-input-container>
 </div>
-<div *ngIf="!group.controls[config.name].valid && group.controls[config.name].touched && applicationState !== 'EDIT'">
+<div *ngIf="!group.controls[config.name].valid && group.controls[config.name].touched && !isInEditState">
   <app-error-message [control]="group.controls[config.name]"></app-error-message>
 </div>
-<div *ngIf="!group.controls[config.name].valid && applicationState === 'EDIT'">
+<div *ngIf="!group.controls[config.name].valid && isInEditState">
   <app-error-message [control]="group.controls[config.name]"></app-error-message>
 </div>

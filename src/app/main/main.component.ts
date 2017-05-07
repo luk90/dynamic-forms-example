@@ -10,6 +10,7 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   isOpen: boolean;
   testData: Map<string, Object> = new Map();
+  private isHidden = false;
 
   constructor(private applicationStateService: ApplicationStateService) {
     this.testData.set('sectionB', {nip: '12345678', numberField: 23});
@@ -31,4 +32,9 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.applicationStateService.applicationStateValue = 'CLOSE';
     this.isOpen = false;
   }
+
+  hideShowApplication() {
+    this.isHidden = !this.isHidden;
+  }
+
 }

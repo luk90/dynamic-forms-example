@@ -4,4 +4,5 @@
 <button (click)="openApplication('NEW')">NEW</button>
 <button (click)="openApplication('EDIT')">EDIT</button>
 <button (click)="closeApplication()">CLOSE</button>
-<app-application *ngIf="isOpen"></app-application>
+<button (click)="hideShowApplication()">HIDE/SHOW</button>
+<app-application *ngIf="isOpen" [hidden]="isHidden"></app-application>

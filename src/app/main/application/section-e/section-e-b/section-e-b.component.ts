@@ -26,7 +26,7 @@ export class SectionEBComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     const applicationMap = this.applicationStateService.applicationMap;
-    this.savedForm = this.applicationUtilsService.checkIfObjectExistAndGet(applicationMap, 'sectionEB');
+    this.savedForm = this.applicationUtilsService.checkIfObjectExistAndGet(applicationMap, 'sectionEA');
     this.config = [
       {
         type: TYPE.INPUT,
@@ -93,14 +93,14 @@ export class SectionEBComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.formSubscription = this.dynamicForm.changes.subscribe((form) => {
-      this.applicationStateService.addFormGroup('sectionEB', form);
+      this.applicationStateService.addFormGroup('sectionEA', form);
     });
   }
 
   ngOnDestroy(): void {
     this.formSubscription.unsubscribe();
-    if (this.applicationStateService.applicationStateValue !== 'CLOSE') {
-      this.applicationStateService.removeFormGroup('sectionEB');
+    if (this.applicationStateService.applicationStateType !== 'CLOSE') {
+      this.applicationStateService.removeFormGroup('sectionEA');
     }
   }
 

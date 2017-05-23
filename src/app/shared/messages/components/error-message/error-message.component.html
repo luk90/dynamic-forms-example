@@ -1,6 +1,6 @@
 <!--<div  class="error-container">-->
   <!--<span class="error-text">{{ errorMessage }}</span>-->
 <!--</div>-->
-<div class="error-container">
+<div class="error-container" *ngIf="showValidation()">
   <md-error class="error-text">{{ errorMessage }}</md-error>
 </div>

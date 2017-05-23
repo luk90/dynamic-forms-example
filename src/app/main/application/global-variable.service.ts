@@ -4,7 +4,7 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class GlobalVariableService {
 
-  variablesMap: Map<string, any> = new Map();
+  private variablesMap: Map<string, any> = new Map();
 
   private globalVariables = new Subject<Map<string, any>>();
 

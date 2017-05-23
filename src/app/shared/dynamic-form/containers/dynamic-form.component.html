@@ -1,8 +1,7 @@
 <form
   autocomplete="off"
   class="dynamic-form"
-  [formGroup]="form"
-  (submit)="handleSubmit($event)">
+  [formGroup]="form">
   <ng-container
     *ngFor="let field of config;"
     [config]="field"

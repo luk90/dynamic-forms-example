@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Field } from '../../model/field';
 import { FieldConfig } from '../../model/field-config';
 import { FormGroup } from '@angular/forms';
-import { ApplicationStateService } from '../../../../main/application/application-state.service';
+import { ApplicationStateService, ApplicationStateType } from '../../../../main/application/application-state.service';
 
 @Component({
   selector: 'app-form-input',
@@ -12,12 +12,22 @@ import { ApplicationStateService } from '../../../../main/application/applicatio
 export class FormInputComponent implements Field, OnInit {
   config: FieldConfig;
   group: FormGroup;
-  isInEditState: boolean;
+  state: ApplicationStateType;
+  isOnBlur = true;
 
   constructor(private applicationStateService: ApplicationStateService) {
   }
 
   ngOnInit(): void {
-    this.isInEditState = this.applicationStateService.applicationStateValue === 'EDIT';
+    this.state = this.applicationStateService.applicationStateType;
   }
+
+  onBlurMethod(): void {
+    this.isOnBlur = true;
+  }
+
+  onFocusMethod(): void {
+    this.isOnBlur = false;
+  }
+
 }

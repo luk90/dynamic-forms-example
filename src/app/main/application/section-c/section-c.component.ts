@@ -38,7 +38,8 @@ export class SectionCComponent implements OnInit, AfterViewInit, OnDestroy {
         name: SECTION_C.NAME.NAME,
         placeholder: SECTION_C.NAME.PLACEHOLDER,
         validation: [Validators.required, Validators.minLength(2)],
-        value: this.savedForm[SECTION_C.NAME.NAME]
+        value: this.savedForm[SECTION_C.NAME.NAME],
+        validationMessageControl: 'NONE'
       },
       {
         type: TYPE.INPUT,
@@ -47,7 +48,8 @@ export class SectionCComponent implements OnInit, AfterViewInit, OnDestroy {
         inputType: INPUT_TYPE.TEXT,
         placeholder: SECTION_C.EMAIL.PLACEHOLDER,
         validation: [Validators.required, EmailValidator.isValidMailFormat],
-        value: this.savedForm[SECTION_C.EMAIL.NAME]
+        value: this.savedForm[SECTION_C.EMAIL.NAME],
+        validationMessageControl: 'NONE'
       },
       {
         type: TYPE.INPUT,
@@ -55,7 +57,8 @@ export class SectionCComponent implements OnInit, AfterViewInit, OnDestroy {
         name: SECTION_C.NIP.NAME,
         placeholder: SECTION_C.NIP.PLACEHOLDER,
         validation: [Validators.required, NipValidator.isValidNipPattern, NipValidator.isValidChecksum],
-        value: this.savedForm[SECTION_C.NIP.NAME]
+        value: this.savedForm[SECTION_C.NIP.NAME],
+        validationMessageControl: 'NONE'
       },
       {
         type: TYPE.INPUT,
@@ -63,8 +66,9 @@ export class SectionCComponent implements OnInit, AfterViewInit, OnDestroy {
         name: SECTION_C.REGON.NAME,
         placeholder: SECTION_C.REGON.PLACEHOLDER,
         validation: [Validators.required, RegonValidator.isValidRegonPattern, RegonValidator.isValidChecksum],
-        value: this.savedForm[SECTION_C.REGON.NAME]
-      }
+        value: this.savedForm[SECTION_C.REGON.NAME],
+        validationMessageControl: 'NONE'
+      },
     ];
   }
 
@@ -76,5 +80,11 @@ export class SectionCComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.formSubscription.unsubscribe();
+  }
+
+  validateOnClick() {
+    this.config.forEach((field) => {
+      field.validationMessageControl = 'ON_CLICK';
+    });
   }
 }

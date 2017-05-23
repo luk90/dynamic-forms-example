@@ -39,12 +39,20 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.form = this.createGroup();
+    this.addDefaultValidationControl();
+  }
+
+  private addDefaultValidationControl() {
+    const noMessageControl = this.controls.filter((item) => !item.validationMessageControl);
+    noMessageControl
+      .map(control => control.validationMessageControl = 'ON_BLUR');
   }
 
   ngOnChanges() {
     if (this.form) {
       const controls = Object.keys(this.form.controls);
       const configControls = this.controls.map((item) => item.name);
+
 
       controls
         .filter((control) => !configControls.includes(control))
@@ -56,6 +64,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
           const config = this.config.find((control) => control.name === name);
           this.form.addControl(name, this.createControl(config));
         });
+
 
     }
   }

@@ -46,7 +46,7 @@ export class SectionEComponent implements OnInit, AfterViewInit, OnDestroy {
         value: this.savedForm[SECTION_E.RADIO.NAME],
       }
     ];
-    if (this.applicationStateService.applicationStateValue === 'EDIT') {
+    if (this.applicationStateService.applicationStateType === 'EDIT') {
       const radioAndSelectStateAfterEdit = {select: this.savedForm[SECTION_E.SELECT.NAME], radio: this.savedForm[SECTION_E.RADIO.NAME]};
       this.dynamicComponentHandler(radioAndSelectStateAfterEdit);
     }

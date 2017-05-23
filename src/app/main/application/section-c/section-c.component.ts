@@ -55,7 +55,8 @@ export class SectionCComponent implements OnInit, AfterViewInit, OnDestroy {
         name: SECTION_C.NIP.NAME,
         placeholder: SECTION_C.NIP.PLACEHOLDER,
         validation: [Validators.required, NipValidator.isValidNipPattern, NipValidator.isValidChecksum],
-        value: this.savedForm[SECTION_C.NIP.NAME]
+        value: this.savedForm[SECTION_C.NIP.NAME],
+        messageConfig: 'onClick'
       },
       {
         type: TYPE.INPUT,
@@ -64,7 +65,7 @@ export class SectionCComponent implements OnInit, AfterViewInit, OnDestroy {
         placeholder: SECTION_C.REGON.PLACEHOLDER,
         validation: [Validators.required, RegonValidator.isValidRegonPattern, RegonValidator.isValidChecksum],
         value: this.savedForm[SECTION_C.REGON.NAME]
-      }
+      },
     ];
   }
 
@@ -76,5 +77,14 @@ export class SectionCComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.formSubscription.unsubscribe();
+  }
+
+  validateOnClick() {
+    this.config[0].messageConfig = 'onClick';
+    console.log(this.config[0]);
+    // this.config.forEach((field) => {
+    //   field.messageConfig = 'onClick';
+    //   console.log(field.messageConfig);
+    // });
   }
 }

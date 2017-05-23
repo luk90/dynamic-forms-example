@@ -10,7 +10,7 @@ export class ApplicationStateService {
 
   private applicationState: Subject<Map<string, Object>> = new Subject<Map<string, Object>>();
 
-  private _applicationStateValue: ApplicationStateType;
+  private _applicationStateType: ApplicationStateType;
 
   applicationState$ = this.applicationState.asObservable();
 
@@ -37,12 +37,12 @@ export class ApplicationStateService {
     this.applicationState.next(this._applicationMap);
   }
 
-  get applicationStateValue(): ApplicationStateType {
-    return this._applicationStateValue;
+  get applicationStateType(): ApplicationStateType {
+    return this._applicationStateType;
   }
 
-  set applicationStateValue(value: ApplicationStateType) {
-    this._applicationStateValue = value;
+  set applicationStateType(value: ApplicationStateType) {
+    this._applicationStateType = value;
   }
 
   get applicationMap(): Map<string, Object> {

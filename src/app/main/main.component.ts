@@ -24,12 +24,12 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
 
   openApplication(state) {
-    this.applicationStateService.applicationStateValue = state;
+    this.applicationStateService.applicationStateType = state;
     this.isOpen = true;
   }
 
   closeApplication() {
-    this.applicationStateService.applicationStateValue = 'CLOSE';
+    this.applicationStateService.applicationStateType = 'CLOSE';
     this.isOpen = false;
   }
 

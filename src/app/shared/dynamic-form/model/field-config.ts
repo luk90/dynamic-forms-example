@@ -10,4 +10,5 @@ export interface FieldConfig {
   type: string;
   validation?: ValidatorFn[];
   value?: any;
+  messageConfig?: string;
 }

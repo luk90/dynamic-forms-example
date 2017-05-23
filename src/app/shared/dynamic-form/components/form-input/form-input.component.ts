@@ -13,11 +13,36 @@ export class FormInputComponent implements Field, OnInit {
   config: FieldConfig;
   group: FormGroup;
   isInEditState: boolean;
+  isOnClick: boolean;
+  isOnBlur: boolean;
 
   constructor(private applicationStateService: ApplicationStateService) {
   }
 
   ngOnInit(): void {
-    this.isInEditState = this.applicationStateService.applicationStateValue === 'EDIT';
+    this.isInEditState = this.applicationStateService.applicationStateType === 'EDIT';
+    this.isOnClick = this.config.messageConfig === 'onClick';
+  }
+
+  onBlurMethod(): void {
+    if (this.isOnClick) {
+      return;
+    }
+    this.isOnBlur = true;
+  }
+
+  onFocusMethod(): void {
+    this.isOnBlur = false;
+  }
+
+  showValidation(): boolean {
+    return !this.group.controls[this.config.name].valid
+      && this.group.controls[this.config.name].touched
+      && !this.isInEditState
+      && this.isOnBlur;
+  }
+
+  showOnClickValidation(): boolean {
+    return this.config.messageConfig === 'onClick';
   }
 }

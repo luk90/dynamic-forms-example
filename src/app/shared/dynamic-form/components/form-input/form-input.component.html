@@ -19,10 +19,12 @@
       mdInput
       type="{{config.inputType}}"
       placeholder="{{config.placeholder}}"
-      [formControlName]="config.name"/>
+      [formControlName]="config.name"
+      (blur)="onBlurMethod()"
+      (focus)="onFocusMethod()"/>
   </md-input-container>
 </div>
-<div *ngIf="!group.controls[config.name].valid && group.controls[config.name].touched && !isInEditState">
+<div *ngIf="showValidation() || showOnClickValidation()">
   <app-error-message [control]="group.controls[config.name]"></app-error-message>
 </div>
 <div *ngIf="!group.controls[config.name].valid && isInEditState">

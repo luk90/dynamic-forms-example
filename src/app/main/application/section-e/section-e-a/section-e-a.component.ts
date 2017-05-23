@@ -92,7 +92,7 @@ export class SectionEAComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log('usuwanie sekcji ea');
     this.validationSubscription.unsubscribe();
     this.formSubscription.unsubscribe();
-    if (this.applicationStateService.applicationStateValue !== 'CLOSE') {
+    if (this.applicationStateService.applicationStateType !== 'CLOSE') {
       this.applicationStateService.removeFormGroup('sectionEA');
     }
 

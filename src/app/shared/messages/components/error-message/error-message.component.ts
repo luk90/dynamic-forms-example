@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ErrorMessageService } from './error-message-service';
 import { ApplicationStateService } from '../../../../main/application/application-state.service';
-import {ApplicationStateType} from '../../../../main/application/application-state-type';
+import {ApplicationStateType} from '../../../../main/application/application-state.type';
 
 export type ValidationControlType = 'ON_BLUR' | 'NONE' | 'ON_CLICK';
 @Component({

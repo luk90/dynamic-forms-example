@@ -3,7 +3,7 @@ import {Field} from '../../model/field';
 import {FieldConfig} from '../../model/field-config';
 import {FormGroup} from '@angular/forms';
 import {ApplicationStateService} from '../../../../main/application/application-state.service';
-import {ApplicationStateType} from '../../../../main/application/application-state-type';
+import {ApplicationStateType} from '../../../../main/application/application-state.type';
 
 @Component({
   selector: 'app-form-input',

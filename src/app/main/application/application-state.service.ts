@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
-import {ApplicationStateType} from './application-state-type';
+import {ApplicationStateType} from './application-state.type';
 
 
 @Injectable()

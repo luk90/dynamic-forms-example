@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ErrorMessageService } from './error-message-service';
 import { ApplicationStateService } from '../../../../main/application/application-state.service';
+import {ApplicationStateType} from '../../../../main/application/application-state-type';
 
 export type ValidationControlType = 'ON_BLUR' | 'NONE' | 'ON_CLICK';
 @Component({
@@ -13,9 +14,9 @@ export class ErrorMessageComponent implements OnInit {
   @Input() control: FormControl;
   @Input() validationControl: ValidationControlType = 'ON_BLUR';
   @Input() onBlur: boolean;
-  @Input() formState: string;
+  @Input() formState: ApplicationStateType;
 
-  constructor(private  applicationStateService: ApplicationStateService) {
+  constructor() {
   }
 
   ngOnInit() {
@@ -53,12 +54,12 @@ export class ErrorMessageComponent implements OnInit {
   }
 
   showValidationForNew(): boolean {
-    return (this.showOnBlurValidation() || this.showOnClickValidation()) && this.applicationStateService.applicationStateType === 'NEW';
+    return (this.showOnBlurValidation() || this.showOnClickValidation()) && this.formState === 'NEW';
   }
 
   showValidationForEdit(): boolean {
     return (this.showOnBlurValidationForPristine() || this.showOnClickValidation())
-      && this.applicationStateService.applicationStateType === 'EDIT';
+      && this.formState === 'EDIT';
   }
 
   showValidation(): boolean {

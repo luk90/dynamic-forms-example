@@ -26,6 +26,7 @@ export class ApplicationComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+    // tylko dla przykładu. Normalnie do mappera wysyłąna jest mapa.
     this.applicationStateSubscription = this.applicationStateService.applicationState$.subscribe(map => {
       this.form = {};
       map.forEach((value, key) => {

@@ -1,4 +1,5 @@
 import {ValidatorFn} from '@angular/forms';
+import { ValidationControlType } from '../../messages/components/error-message/error-message.component';
 
 export interface FieldConfig {
   disabled?: boolean;
@@ -10,5 +11,5 @@ export interface FieldConfig {
   type: string;
   validation?: ValidatorFn[];
   value?: any;
-  messageConfig?: string;
+  validationMessageControl?: ValidationControlType;
 }

@@ -8,7 +8,7 @@
 <!--[formControlName]="config.name"/>-->
 <!--</div>-->
 <!--<div *ngIf="!group.controls[config.name].valid && group.controls[config.name].touched">-->
-<!--<app-error-message [control]="group.controls[config.name]"></app-error-message>-->
+<!--<app-ervalidationMessageControlsage [covalidationMessageControl"group.controls[config.name]"></app-error-message>-->
 <!--</div>-->
 
 <div
@@ -24,9 +24,8 @@
       (focus)="onFocusMethod()"/>
   </md-input-container>
 </div>
-<div *ngIf="showValidation() || showOnClickValidation()">
-  <app-error-message [control]="group.controls[config.name]"></app-error-message>
-</div>
-<div *ngIf="!group.controls[config.name].valid && isInEditState">
-  <app-error-message [control]="group.controls[config.name]"></app-error-message>
-</div>
+<app-error-message [control]="group.controls[config.name]"
+                   [validationControl]="config.validationMessageControl"
+                   [onBlur]="isOnBlur"
+                   [formState]="state"
+></app-error-message>

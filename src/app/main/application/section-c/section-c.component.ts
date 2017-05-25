@@ -38,7 +38,8 @@ export class SectionCComponent implements OnInit, AfterViewInit, OnDestroy {
         name: SECTION_C.NAME.NAME,
         placeholder: SECTION_C.NAME.PLACEHOLDER,
         validation: [Validators.required, Validators.minLength(2)],
-        value: this.savedForm[SECTION_C.NAME.NAME]
+        value: this.savedForm[SECTION_C.NAME.NAME],
+        validationMessageControl: 'NONE'
       },
       {
         type: TYPE.INPUT,
@@ -47,7 +48,8 @@ export class SectionCComponent implements OnInit, AfterViewInit, OnDestroy {
         inputType: INPUT_TYPE.TEXT,
         placeholder: SECTION_C.EMAIL.PLACEHOLDER,
         validation: [Validators.required, EmailValidator.isValidMailFormat],
-        value: this.savedForm[SECTION_C.EMAIL.NAME]
+        value: this.savedForm[SECTION_C.EMAIL.NAME],
+        validationMessageControl: 'NONE'
       },
       {
         type: TYPE.INPUT,
@@ -56,7 +58,7 @@ export class SectionCComponent implements OnInit, AfterViewInit, OnDestroy {
         placeholder: SECTION_C.NIP.PLACEHOLDER,
         validation: [Validators.required, NipValidator.isValidNipPattern, NipValidator.isValidChecksum],
         value: this.savedForm[SECTION_C.NIP.NAME],
-        messageConfig: 'onClick'
+        validationMessageControl: 'NONE'
       },
       {
         type: TYPE.INPUT,
@@ -64,7 +66,8 @@ export class SectionCComponent implements OnInit, AfterViewInit, OnDestroy {
         name: SECTION_C.REGON.NAME,
         placeholder: SECTION_C.REGON.PLACEHOLDER,
         validation: [Validators.required, RegonValidator.isValidRegonPattern, RegonValidator.isValidChecksum],
-        value: this.savedForm[SECTION_C.REGON.NAME]
+        value: this.savedForm[SECTION_C.REGON.NAME],
+        validationMessageControl: 'NONE'
       },
     ];
   }
@@ -80,11 +83,8 @@ export class SectionCComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   validateOnClick() {
-    this.config[0].messageConfig = 'onClick';
-    console.log(this.config[0]);
-    // this.config.forEach((field) => {
-    //   field.messageConfig = 'onClick';
-    //   console.log(field.messageConfig);
-    // });
+    this.config.forEach((field) => {
+      field.validationMessageControl = 'ON_CLICK';
+    });
   }
 }

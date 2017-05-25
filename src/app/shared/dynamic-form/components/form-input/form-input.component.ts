@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Field } from '../../model/field';
 import { FieldConfig } from '../../model/field-config';
 import { FormGroup } from '@angular/forms';
-import { ApplicationStateService } from '../../../../main/application/application-state.service';
+import { ApplicationStateService, ApplicationStateType } from '../../../../main/application/application-state.service';
 
 @Component({
   selector: 'app-form-input',
@@ -12,22 +12,17 @@ import { ApplicationStateService } from '../../../../main/application/applicatio
 export class FormInputComponent implements Field, OnInit {
   config: FieldConfig;
   group: FormGroup;
-  isInEditState: boolean;
-  isOnClick: boolean;
-  isOnBlur: boolean;
+  state: ApplicationStateType;
+  isOnBlur = true;
 
   constructor(private applicationStateService: ApplicationStateService) {
   }
 
   ngOnInit(): void {
-    this.isInEditState = this.applicationStateService.applicationStateType === 'EDIT';
-    this.isOnClick = this.config.messageConfig === 'onClick';
+    this.state = this.applicationStateService.applicationStateType;
   }
 
   onBlurMethod(): void {
-    if (this.isOnClick) {
-      return;
-    }
     this.isOnBlur = true;
   }
 
@@ -35,14 +30,4 @@ export class FormInputComponent implements Field, OnInit {
     this.isOnBlur = false;
   }
 
-  showValidation(): boolean {
-    return !this.group.controls[this.config.name].valid
-      && this.group.controls[this.config.name].touched
-      && !this.isInEditState
-      && this.isOnBlur;
-  }
-
-  showOnClickValidation(): boolean {
-    return this.config.messageConfig === 'onClick';
-  }
 }

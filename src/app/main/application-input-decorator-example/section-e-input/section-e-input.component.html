@@ -1,0 +1,12 @@
+<legend>Section E</legend>
+<div class="section-e">
+  <app-dynamic-form
+    [config]="config"
+    #form="appDynamicForm"
+    (submit)="submit($event)">
+  </app-dynamic-form>
+  {{ form.valid }}
+  <pre>{{form.value | json}}</pre>
+</div>
+<button md-button (click)="changeOptions()">CHANGE OPTIONS</button>
+<ng-container  ></ng-container>

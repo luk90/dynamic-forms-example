@@ -1,8 +1,14 @@
-<p>
-  main works!
-</p>
+<h3>Przykład wykorzystujący serwisy</h3>
 <button (click)="openApplication('NEW')">NEW</button>
 <button (click)="openApplication('EDIT')">EDIT</button>
 <button (click)="closeApplication()">CLOSE</button>
 <button (click)="hideShowApplication()">HIDE/SHOW</button>
 <app-application *ngIf="isOpen" [hidden]="isHidden"></app-application>
+<br>
+<h3>Przykład wykorzystujący input decorator</h3>
+<button (click)="openApplicationInput('NEW')">NEW</button>
+<button (click)="openApplicationInput('EDIT')">EDIT</button>
+<button (click)="closeApplicationInput()">CLOSE</button>
+<button (click)="hideShowApplicationInput()">HIDE/SHOW</button>
+<app-application-input *ngIf="isOpenApplicationInput" [hidden]="isHiddenApplicationInput"></app-application-input>
+

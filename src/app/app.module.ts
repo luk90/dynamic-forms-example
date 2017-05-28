@@ -8,6 +8,7 @@ import { SharedModule } from './shared/shared.module';
 import { ApplicationModule } from './main/application/application.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainComponent } from './main/main.component';
+import { ApplicationInputModule } from './main/application-input-decorator-example/application-input.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MainComponent } from './main/main.component';
     HttpModule,
     SharedModule,
     ApplicationModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ApplicationInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
